@@ -23,4 +23,4 @@ jobs:
           SECRET_NAME: 'TEST_SECRET'
           NEW_SECRET_VALUE: 'FALSE'
         run: |
-          python script.py
+          python ./.github/workflows/script.py
