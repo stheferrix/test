@@ -37,7 +37,7 @@ jobs:
           NEW_SECRET_VALUE: 'FALSE'  # Novo valor do segredo
           KEY_ID: ${{ steps.get_public_key.outputs.key_id }}
           PUBLIC_ID: ${{ steps.get_public_key.outputs.public_key }}
-        run: python ./.github/workflows/script2.py
+        run: python ./.github/workflows/script3.py
 
       - name: Verificar valor da secret
         run: |
