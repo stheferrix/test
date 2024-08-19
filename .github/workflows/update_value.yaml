@@ -6,6 +6,7 @@ on:
 jobs:
   update-secret:
     runs-on: ubuntu-latest
+    permissions: write-all
 
     steps:
 
@@ -30,7 +31,7 @@ jobs:
 
       - name: Update GitHub Secret
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TEST_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_NAME: 'update_secrets'
           REPO: ${{ github.repository }}  # Nome do repositório no formato "owner/repo"
           SECRET_NAME: 'TEST_SECRET'  # Nome do segredo que você deseja atualizar
