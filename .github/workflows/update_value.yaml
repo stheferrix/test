@@ -46,4 +46,4 @@ jobs:
 
       - name: check2
         if: ${{ secrets.TEST_SECRET == 'FALSE' }}
-        run: echo "TRUE"
+        run: echo "FALSE"
