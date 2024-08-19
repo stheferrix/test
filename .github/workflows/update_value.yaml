@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Get Public Key
         id: get_public_key
         run: |
@@ -17,13 +21,21 @@ jobs:
           echo "::set-output name=public_key::$(echo $response | jq -r .key)"
           echo "::set-output name=key_id::$(echo $response | jq -r .key_id)"
 
-      - name: Encrypt Secret
-        id: encrypt_secret
-        uses: ./github/actions/encrypt-secret
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          secret_value: 'SEU_VALOR_DE_SEGREDO'  # Substitua pelo valor que deseja criptografar
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: pip install requests pybase64 cryptography pycryptodome    
+  
+      - name: Update GitHub Secret
+        env:
+          secret_value: 'FALSE'  # Substitua pelo valor que deseja criptografar
           public_key: ${{ steps.get_public_key.outputs.public_key }}
           key_id: ${{ steps.get_public_key.outputs.key_id }}
+        run: |
+          python ./.github/workflows/script2.py
 
       # - name: Update Secret
       #   run: |
