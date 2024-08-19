@@ -31,6 +31,7 @@ jobs:
       - name: Update GitHub Secret
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_NAME: 'update_secrets'
           REPO: ${{ github.repository }}  # Nome do repositório no formato "owner/repo"
           SECRET_NAME: 'TEST_SECRET'  # Nome do segredo que você deseja atualizar
           NEW_SECRET_VALUE: 'FALSE'  # Novo valor do segredo
