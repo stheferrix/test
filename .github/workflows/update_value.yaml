@@ -40,10 +40,10 @@ jobs:
           PUBLIC_ID: ${{ steps.get_public_key.outputs.public_key }}
         run: python ./.github/workflows/script2.py
 
-      - name: check1
-        if: ${{ secrets.TEST_SECRET == 'TRUE' }}
-        run: echo "TRUE"
+      # - name: check1
+      #   if: ${{ secrets.TEST_SECRET == 'TRUE' }}
+      #   run: echo "TRUE"
 
-      - name: check2
-        if: ${{ secrets.TEST_SECRET == 'FALSE' }}
-        run: echo "FALSE"
+      # - name: check2
+      #   if: ${{ secrets.TEST_SECRET == 'FALSE' }}
+      #   run: echo "FALSE"
