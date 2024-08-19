@@ -5,6 +5,9 @@ import os
 print("testando")
 
 new_secret_value = os.environ['NEW_SECRET_VALUE']
+
+print('VALOR =', new_secret_value )
+
 encoded_value = base64.b64encode(new_secret_value.encode()).decode()
 
 url = f"https://api.github.com/repos/{os.environ['REPO']}/actions/secrets/{os.environ['SECRET_NAME']}"
