@@ -40,12 +40,7 @@ jobs:
           PUBLIC_ID: ${{ steps.get_public_key.outputs.public_key }}
         run: python ./.github/workflows/script2.py
 
-      - name: Update Secret
-        env:
-          GITHUB_TOKEN: ${{ secrets.TEST_SECRET }}
+      - name: Check var
+        if: ${{ secrets.TEST_SECRET == 'FALSE' }}
         run: |
-          if [[ "${{ secrets.TEST_SECRET }}" == 'FALSE' ]]; then
-            echo "DEU CERTO, TA FALSE"
-          elif [[ "${{ secrets.TEST_SECRET }}" == 'TRUE' ]]; then
-            echo "TA TRUE"
-          fi
+          echo "DEU CERTO, TA FALSE"
