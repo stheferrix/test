@@ -13,7 +13,7 @@ SECRET_VALUE = os.environ['NEW_SECRET_VALUE']
 
 # Função para obter a chave pública
 def get_public_key():
-    url = f'https://api.github.com/repos/{REPO_OWNER}/actions/secrets/public-key'
+    url = f'https://api.github.com/repos/{REPO}/actions/secrets/public-key'
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
         'Accept': 'application/vnd.github.v3+json',
@@ -34,7 +34,7 @@ def encrypt_secret(secret_value, public_key):
 
 # Função para atualizar o segredo no GitHub
 def update_secret(public_key_info, encrypted_value):
-    url = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/secrets/{SECRET_NAME}'
+    url = f'https://api.github.com/repos/{REPO}/actions/secrets/{SECRET_NAME}'
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
         'Accept': 'application/vnd.github.v3+json',
