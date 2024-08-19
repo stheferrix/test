@@ -5,6 +5,8 @@ import os
 print("testando")
 
 new_secret_value = os.environ['NEW_SECRET_VALUE']
+key_id = os.environ['KEY_ID']
+public_key = os.environ['PUBLIC_KEY']
 
 print('VALOR =', new_secret_value )
 
@@ -16,11 +18,6 @@ headers = {
     'Authorization': f'token {os.environ["GITHUB_TOKEN"]}',
     'Accept': 'application/vnd.github.v3+json'
 }
-
-response = requests.get(f"https://api.github.com/repos/{os.environ['REPO']}/actions/secrets/public-key", headers=headers)
-public_key_info = response.json()
-key_id = public_key_info['key_id']
-public_key = public_key_info['key']
 
 from cryptography.fernet import Fernet
 import json
