@@ -7,14 +7,13 @@ from Crypto.Cipher import PKCS1_OAEP
 
 # Configurações
 GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
-REPO_OWNER = os.environ['REPO']
-REPO_NAME = os.environ['REPO_NAME']
+REPO = os.environ['REPO']
 SECRET_NAME = os.environ['SECRET_NAME']
 SECRET_VALUE = os.environ['NEW_SECRET_VALUE']
 
 # Função para obter a chave pública
 def get_public_key():
-    url = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/secrets/public-key'
+    url = f'https://api.github.com/repos/{REPO_OWNER}/actions/secrets/public-key'
     headers = {
         'Authorization': f'token {GITHUB_TOKEN}',
         'Accept': 'application/vnd.github.v3+json',
