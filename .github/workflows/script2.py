@@ -1,22 +1,37 @@
-import os
-import sys
+import requests
 import base64
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_OAEP
+import os
 
-def encrypt_secret(public_key, secret):
-    key = RSA.import_key(base64.b64decode(public_key))
-    cipher = PKCS1_OAEP.new(key)
-    encrypted_secret = cipher.encrypt(secret.encode())
-    return base64.b64encode(encrypted_secret).decode()
+# Prepare o valor do segredo
+new_secret_value = os.environ['NEW_SECRET_VALUE']
+encoded_value = base64.b64encode(new_secret_value.encode()).decode()
 
-def main():
-    secret_value = os.getenv('secret_value')
-    public_key = os.getenv('public_key')
-    key_id = os.getenv('key_id')
+# URL para a API do GitHub
+url = f"https://api.github.com/repos/{os.environ['REPO']}/actions/secrets/{os.environ['SECRET_NAME']}"
 
-    encrypted_value = encrypt_secret(public_key, secret_value)
-    print(f"::set-output name=encrypted_value::{encrypted_value}")
+# Cabeçalhos da requisição
+headers = {
+  'Authorization': f'token {os.environ["GITHUB_TOKEN"]}',
+  'Accept': 'application/vnd.github.v3+json'
+}
 
-if __name__ == "__main__":
-    main()
+# Obter a chave pública para encriptação
+
+key_id = os.environ['KEY_ID']
+public_key = os.environ['PUBLIC_ID']
+
+# Encriptar o novo valor do segredo
+from cryptography.fernet import Fernet
+import json
+
+# Criar um Fernet com a chave pública
+fernet = Fernet(public_key.encode())
+encrypted_value = fernet.encrypt(encoded_value.encode())
+
+# Atualizar o segredo
+data = {
+  'encrypted_value': encrypted_value.decode(),
+  'key_id': key_id
+}
+
+requests.put(url, headers=headers, json=data)
