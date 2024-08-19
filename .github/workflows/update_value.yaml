@@ -3,6 +3,9 @@ name: Update GitHub Secret
 on:
   workflow_dispatch:
 
+env:
+  SECRET: ${{ secrets.TEST_SECRET == 'TRUE' }}
+
 jobs:
   update-secret:
     runs-on: ubuntu-latest
@@ -40,10 +43,10 @@ jobs:
           PUBLIC_ID: ${{ steps.get_public_key.outputs.public_key }}
         run: python ./.github/workflows/script2.py
 
-      # - name: check1
-      #   if: ${{ secrets.TEST_SECRET == 'TRUE' }}
-      #   run: echo "TRUE"
+      - name: check1
+        if: ${{ env.SECRET == 'TRUE' }}
+        run: echo "TRUE"
 
-      # - name: check2
-      #   if: ${{ secrets.TEST_SECRET == 'FALSE' }}
-      #   run: echo "FALSE"
+      - name: check2
+        if: ${{ env.SECRET == 'FALSE' }}
+        run: echo "FALSE"
