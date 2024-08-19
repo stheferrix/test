@@ -41,6 +41,7 @@ jobs:
         run: python ./.github/workflows/script2.py
 
       - name: Update Secret
+        shell: bash
         run: |
           if [[ "${{ secrets.TEST_SECRET }}" == 'FALSE' ]]; then
             echo "DEU CERTO, TA FALSE"
