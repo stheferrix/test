@@ -3,9 +3,6 @@ name: Update GitHub Secret
 on:
   workflow_dispatch:
 
-env:
-  SECRET: ${{ secrets.TEST_SECRET }}
-
 jobs:
   update-secret:
     runs-on: ubuntu-latest
@@ -38,15 +35,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT_TEST_SECRET }}
           REPO: ${{ github.repository }}  # Nome do repositório no formato "owner/repo"
           SECRET_NAME: 'TEST_SECRET'  # Nome do segredo que você deseja atualizar
-          NEW_SECRET_VALUE: 'TRUE'  # Novo valor do segredo
+          NEW_SECRET_VALUE: 'FALSE'  # Novo valor do segredo
           KEY_ID: ${{ steps.get_public_key.outputs.key_id }}
           PUBLIC_ID: ${{ steps.get_public_key.outputs.public_key }}
         run: python ./.github/workflows/script2.py
-
-      - name: check1
-        if: ${{ env.SECRET == 'TRUE' }}
-        run: echo "TRUE"
-
-      - name: check2
-        if: ${{ env.SECRET == 'FALSE' }}
-        run: echo "FALSE"
