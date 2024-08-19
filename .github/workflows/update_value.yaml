@@ -46,3 +46,4 @@ jobs:
             echo "DEU CERTO, TA FALSE"
           elif [${{ secrets.TEST_SECRET }} == 'TRUE']; then
             echo "TA TRUE"
+          fi
