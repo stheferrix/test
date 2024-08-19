@@ -2,15 +2,15 @@ import base64
 import os
 import requests
 
-secret_name = os.getenv('SECRET_NAME')
-new_secret_value = os.getenv('NEW_SECRET_VALUE')
-token = os.getenv('GITHUB_TOKEN')
+secret_name = os.environ['SECRET_NAME']
+new_secret_value = os.environ['NEW_SECRET_VALUE']
+token = os.environ['GITHUB_TOKEN']
 
 # Codificando o novo valor do segredo para base64
 new_secret_value_encoded = base64.b64encode(new_secret_value.encode()).decode()
 
 # Obter o SHA do segredo atual
-repo = os.getenv('REPO')
+repo = os.environ['REPO']
 url = f'https://api.github.com/repos/{repo}/actions/secrets/{secret_name}'
 
 response = requests.get(url, headers={'Authorization': f'token {token}'})
