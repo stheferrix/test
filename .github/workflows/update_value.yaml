@@ -18,7 +18,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install requests pybase64 cryptography pycripto
+        run: pip install requests pybase64 cryptography pycrypto
 
       - name: Get Public Key
         id: get_public_key
