@@ -24,7 +24,7 @@ jobs:
       - name: Get Public Key
         id: get_public_key
         run: |
-          response=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${{ github.repository }}/actions/secrets/public-key)
+          response=$(curl -H "Authorization: token ${{ secrets.PAT_TEST_SECRET }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${{ github.repository }}/actions/secrets/public-key)
           echo "::set-output name=public_key::$(echo $response | jq -r .key)"
           echo "::set-output name=key_id::$(echo $response | jq -r .key_id)"
 
