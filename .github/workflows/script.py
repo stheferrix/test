@@ -10,7 +10,7 @@ public_key = os.environ['PUBLIC_KEY']
 
 print('VALOR =', new_secret_value )
 
-encoded_value = base64.b64encode(new_secret_value.encode('utf-8')).decode('utf-8')
+encoded_value = base64.urlsafe_b64encode(new_secret_value.encode()).decode()
 
 url = f"https://api.github.com/repos/{os.environ['REPO']}/actions/secrets/{os.environ['SECRET_NAME']}"
 
@@ -22,13 +22,12 @@ headers = {
 from cryptography.fernet import Fernet
 import json
 
-fernet = Fernet(public_key.encode('utf-8'))
-encrypted_value = fernet.encrypt(encoded_value.encode('utf-8'))
+fernet = Fernet(public_key.encode())
+encrypted_value = fernet.encrypt(encoded_value.encode())
 
 data = {
-    'encrypted_value': encrypted_value.decode('utf-8'),
+    'encrypted_value': encrypted_value.decode(),
     'key_id': key_id
 }
 
-requests.put(url, headers=headers, json=data)
-                    
+requests.put(url, headers=headers, json=data)                    
