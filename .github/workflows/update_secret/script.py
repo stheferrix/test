@@ -11,9 +11,9 @@ def encrypt_secret(public_key, secret):
     return base64.b64encode(encrypted_secret).decode()
 
 def main():
-    secret_value = os.getenv('INPUT_SECRET_VALUE')
-    public_key = os.getenv('INPUT_PUBLIC_KEY')
-    key_id = os.getenv('INPUT_KEY_ID')
+    secret_value = os.environ['NEW_SECRET_VALUE']
+    public_key = os.environ['PUBLIC_KEY']
+    key_id = os.environ['KEY_ID']
 
     encrypted_value = encrypt_secret(public_key, secret_value)
     print(f"::set-output name=encrypted_value::{encrypted_value}")
