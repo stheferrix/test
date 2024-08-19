@@ -5,6 +5,7 @@ import requests
 secret_name = os.environ['SECRET_NAME']
 new_secret_value = os.environ['NEW_SECRET_VALUE']
 token = os.environ['GITHUB_TOKEN']
+key_id = os.environ['KEY_ID']
 
 # Codificando o novo valor do segredo para base64
 new_secret_value_encoded = base64.b64encode(new_secret_value.encode()).decode()
@@ -15,8 +16,7 @@ url = f'https://api.github.com/repos/{repo}/actions/secrets/{secret_name}'
 
 response = requests.get(url, headers={'Authorization': f'token {token}'})
 if response.status_code == 200:
-    secret_info = response.json()
-    secret_sha = secret_info['key_id']
+
 
     # Atualizar o segredo
     update_url = f'https://api.github.com/repos/{repo}/actions/secrets/{secret_name}'
