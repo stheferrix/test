@@ -1,40 +1,30 @@
-name: Update Secret
+name: Update GitHub Secret
 
 on:
-  workflow_dispatch: # Allows manual trigger of the workflow
+  workflow_dispatch:
 
 jobs:
-  update_secret:
+  update-secret:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Retrieve public key
+      - name: Get Public Key
         id: get_public_key
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          response=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/actions/secrets/public-key)
-          
-          echo "public_key=$(echo $response | jq -r .key)" >> $GITHUB_ENV
-          echo "key_id=$(echo $response | jq -r .key_id)" >> $GITHUB_ENV
+          response=$(curl -H "Authorization: token ${{ secrets.PAT_TEST_SECRET }}" \
+                           -H "Accept: application/vnd.github.v3+json" \
+                           https://api.github.com/repos/${{ github.repository }}/actions/secrets/public-key)
+          echo "::set-output name=public_key::$(echo $response | jq -r .key)"
+          echo "::set-output name=key_id::$(echo $response | jq -r .key_id)"
 
-      - name: Update GitHub Secret
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SECRET_NAME: "TEST_SECRET" # Replace with your secret name
-          NEW_SECRET_VALUE: "FALSE" # Replace with the new secret value
-        run: |
-          # Base64 encode the new secret value
-          ENCODED_VALUE=$(echo -n "${NEW_SECRET_VALUE}" | openssl pkeyutl -encrypt -pubin -inkey <(echo "${public_key}" | base64 --decode) | base64 | tr -d '\n')
-          
-          # Update the secret using GitHub API
-          curl -X PUT \
-            -H "Authorization: token ${GITHUB_TOKEN}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/actions/secrets/${SECRET_NAME} \
-            -d "{\"encrypted_value\":\"${ENCODED_VALUE}\", \"key_id\":\"${key_id}\"}"
+      # - name: Encrypt Secret
+      #   id: encrypt_secret
+      #   uses: ./github/actions/encrypt-secret
+      #   with:
+      #     secret_value: 'SEU_VALOR_DE_SEGREDO'  # Substitua pelo valor que deseja criptografar
+      #     public_key: ${{ steps.get_public_key.outputs.public_key }}
+      #     key_id: ${{ steps.get_public_key.outputs.key_id }}
+
+      # - name: Update Secret
+      #   run: |
+      #     curl -X PUT -H "Authorization: token ${{ secrets.PAT_TEST_SECRET }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${{ github.repository }}/actions/secrets/NOME_DO_SECRETO -d '{"encrypted_value": "${{ steps.encrypt_secret.outputs.encrypted_value }}", "key_id": "${{ steps.get_public_key.outputs.key_id }}"}'
