@@ -22,7 +22,7 @@ if response.status_code == 200:
     update_url = f'https://api.github.com/repos/{repo}/actions/secrets/{secret_name}'
     payload = {
         'encrypted_value': new_secret_value_encoded,
-        'key_id': secret_sha
+        'key_id': key_id
     }
     response = requests.put(update_url, json=payload, headers={'Authorization': f'token {token}'})
     if response.status_code == 201:
