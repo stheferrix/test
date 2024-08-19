@@ -1,33 +1,22 @@
-import base64
 import os
-import requests
+import sys
+import base64
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
 
-secret_name = os.environ['SECRET_NAME']
-new_secret_value = os.environ['NEW_SECRET_VALUE']
-token = os.environ['GITHUB_TOKEN']
-key_id = os.environ['KEY_ID']
+def encrypt_secret(public_key, secret):
+    key = RSA.import_key(base64.b64decode(public_key))
+    cipher = PKCS1_OAEP.new(key)
+    encrypted_secret = cipher.encrypt(secret.encode())
+    return base64.b64encode(encrypted_secret).decode()
 
-# Codificando o novo valor do segredo para base64
-new_secret_value_encoded = base64.b64encode(new_secret_value.encode()).decode()
+def main():
+    secret_value = os.getenv('secret_value')
+    public_key = os.getenv('public_key')
+    key_id = os.getenv('key_id')
 
-# Obter o SHA do segredo atual
-repo = os.environ['REPO']
-url = f'https://api.github.com/repos/{repo}/actions/secrets/{secret_name}'
+    encrypted_value = encrypt_secret(public_key, secret_value)
+    print(f"::set-output name=encrypted_value::{encrypted_value}")
 
-response = requests.get(url, headers={'Authorization': f'token {token}'})
-if response.status_code == 200:
-
-
-    # Atualizar o segredo
-    update_url = f'https://api.github.com/repos/{repo}/actions/secrets/{secret_name}'
-    payload = {
-        'encrypted_value': new_secret_value_encoded,
-        'key_id': key_id
-    }
-    response = requests.put(update_url, json=payload, headers={'Authorization': f'token {token}'})
-    if response.status_code == 201:
-        print('Segredo atualizado com sucesso!')
-    else:
-        print('Erro ao atualizar o segredo:', response.json())
-else:
-    print('Erro ao obter o segredo:', response.json())
+if __name__ == "__main__":
+    main()
