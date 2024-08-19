@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  SECRET: ${{ secrets.TEST_SECRET == 'TRUE' }}
+  SECRET: ${{ secrets.TEST_SECRET }}
 
 jobs:
   update-secret:
