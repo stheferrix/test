@@ -3,6 +3,9 @@ name: Test
 on:
   workflow_dispatch:  # Permite que o workflow seja acionado manualmente
 
+env:
+  flag: ${{ environments.testflag }}
+
 jobs:
   update-secret:
     runs-on: ubuntu-latest
@@ -10,5 +13,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Display flag
+        id: display_flag_failfast
+        run: |
+          echo "Flag: test"
 
       
