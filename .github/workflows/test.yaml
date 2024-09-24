@@ -2,13 +2,22 @@ name: Test
 
 on:
   workflow_dispatch:  # Permite que o workflow seja acionado manualmente
-
-env:
-  flag: ${{ environments.testflag }}
+    inputs:
+      testflag:
+        type: string
+        options:
+          - testflag
+      environment:
+        type: choice
+        options:
+          - testenv
 
 jobs:
   update-secret:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        testflag: ${{ fromJson(inputs.testflag) }}
 
     steps:
       - name: Checkout repository
@@ -17,6 +26,6 @@ jobs:
       - name: Display flag
         id: display_flag_failfast
         run: |
-          echo "Flag: test"
+          echo "${{ matrix.testflag.value }}"
 
       
