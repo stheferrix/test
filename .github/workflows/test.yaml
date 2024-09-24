@@ -8,9 +8,8 @@ on:
       #   options:
       #     - testflag
       environment:
-        type: choice
-        options:
-          - testflag
+        type: string
+        default: testflag
 
 jobs:
   update-secret:
