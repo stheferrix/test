@@ -1,0 +1,14 @@
+name: Test
+
+on:
+  workflow_dispatch:  # Permite que o workflow seja acionado manualmente
+
+jobs:
+  update-secret:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      
