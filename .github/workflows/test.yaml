@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           test=${{ vars.flag }}
-          for env in "${test[@]}"; do
+          for env in $(echo "$test" | jq -r '.[]'); do
             echo "Environment: $env"
           done
 
