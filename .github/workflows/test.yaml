@@ -30,5 +30,6 @@ jobs:
         shell: bash
         run: |
           echo "${{ steps.test1.outputs.test }}"
+          echo "${{ fromJson(steps.test1.outputs.test) }}"
 
       
