@@ -23,13 +23,21 @@ jobs:
         shell: bash
         run: |
           test=${{ vars.flag }}
-          echo "test=$test" >> "$GITHUB_OUTPUT"
+          for env in "${test[@]}"; do
+            echo "Environment: $env"
+          done
 
-      - name: Test 2
-        id: test2
-        shell: bash
-        run: |
-          echo "${{ steps.test1.outputs.test }}"
-          echo "${{ fromJson(steps.test1.outputs.test) }}"
+
+          
+      # echo "test=$test" >> "$GITHUB_OUTPUT"
+
+      # - name: Test 2
+      #   id: test2
+      #   shell: bash
+      #   run: |
+      #     echo "${{ steps.test1.outputs.test }}"
+      #     for env in "${environments[@]}"; do
+      #       echo "Environment: $env"
+      #     done
 
       
