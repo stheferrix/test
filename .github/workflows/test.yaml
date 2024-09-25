@@ -22,11 +22,11 @@ jobs:
         id: test1
         shell: bash
         run: |
-          test='${{ vars.flag }}'
-          if [ "${{ inputs.environment }}" == ${{ fromJson(vars.flag) }} ]; then
-            echo "deu certo! eh $env"
+          json_array='${{ vars.flag }}'
+          if echo "$json_array" | jq -e '. | index("${{ inputs.environment }}")' > /dev/null; then
+              echo '"dev" is in the array.'
           else
-            echo "nao deu certo! eh $env"
+              echo '"dev" is not in the array.'
           fi
             
     # for env in $(echo "$test" | jq -r '.[]'); do
