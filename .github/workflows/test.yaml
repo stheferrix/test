@@ -23,46 +23,46 @@ jobs:
         shell: bash
         run: |
           test='${{ vars.flag }}'
-          if [ "${{ inputs.environment }}" == fromJson($test) ]; then
+          if [ "${{ inputs.environment }}" == '${{ fromJson(vars.flag) }}' ]; then
             echo "deu certo! eh $env"
           else
             echo "nao deu certo! eh $env"
           fi
             
-          # for env in $(echo "$test" | jq -r '.[]'); do
-          #   echo "Environment: $env"
-          #   if [ "${{ inputs.environment }}" == $env ]; then
-          #     echo "deu certo! eh $env"
-          #   elif [ "${{ inputs.environment }}" != $env ]; then
-          #     echo "nao deu certo! eh $env"
-          #   fi
-          # done
+    # for env in $(echo "$test" | jq -r '.[]'); do
+    #   echo "Environment: $env"
+    #   if [ "${{ inputs.environment }}" == $env ]; then
+    #     echo "deu certo! eh $env"
+    #   elif [ "${{ inputs.environment }}" != $env ]; then
+    #     echo "nao deu certo! eh $env"
+    #   fi
+    # done
 
 
 
 
-        
-          # test='${{ vars.flag }}'
-          # for env in $(echo "$test" | jq -r '.[]'); do
-          #   echo "Environment: $env"
-          #   if [ "${{ inputs.environment }}" == $env ]; then
-          #     echo "deu certo! eh $env"
-          #   elif [ "${{ inputs.environment }}" != $env ]; then
-          #     echo "nao deu certo! eh $env"
-          #   fi
-          # done
+  
+    # test='${{ vars.flag }}'
+    # for env in $(echo "$test" | jq -r '.[]'); do
+    #   echo "Environment: $env"
+    #   if [ "${{ inputs.environment }}" == $env ]; then
+    #     echo "deu certo! eh $env"
+    #   elif [ "${{ inputs.environment }}" != $env ]; then
+    #     echo "nao deu certo! eh $env"
+    #   fi
+    # done
 
 
-          
-      # echo "test=$test" >> "$GITHUB_OUTPUT"
+    
+# echo "test=$test" >> "$GITHUB_OUTPUT"
 
-      # - name: Test 2
-      #   id: test2
-      #   shell: bash
-      #   run: |
-      #     echo "${{ steps.test1.outputs.test }}"
-      #     for env in "${environments[@]}"; do
-      #       echo "Environment: $env"
-      #     done
+# - name: Test 2
+#   id: test2
+#   shell: bash
+#   run: |
+#     echo "${{ steps.test1.outputs.test }}"
+#     for env in "${environments[@]}"; do
+#       echo "Environment: $env"
+#     done
 
-      
+
