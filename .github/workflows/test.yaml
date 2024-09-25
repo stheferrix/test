@@ -8,6 +8,8 @@ on:
         options:
           - dev
           - uat
+          - preprod
+          - prod
         
 
 jobs:
@@ -24,9 +26,9 @@ jobs:
         run: |
           json_array='${{ vars.flag }}'
           if echo "$json_array" | jq -e '. | index("${{ inputs.environment }}")' > /dev/null; then
-              echo '"dev" is in the array.'
+              echo '${{ inputs.environment }} is in the array.'
           else
-              echo '"dev" is not in the array.'
+              echo '${{ inputs.environment }} is not in the array.'
           fi
             
     # for env in $(echo "$test" | jq -r '.[]'); do
