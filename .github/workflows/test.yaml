@@ -29,6 +29,6 @@ jobs:
         id: test2
         shell: bash
         run: |
-          echo "${{ steps.check_flag_failfast.outputs.test1 }}"
+          echo "${{ steps.test1.outputs.test }}"
 
       
