@@ -13,9 +13,6 @@ on:
 jobs:
   update-secret:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        testflag: ${{ fromJson(vars.flag) }}
 
     steps:
       - name: Checkout repository
@@ -25,7 +22,7 @@ jobs:
         id: test1
         shell: bash
         run: |
-          test="$testflag"
+          test=${{ vars.flag }}
           echo "test=$test" >> "$GITHUB_OUTPUT"
 
       # - name: Test 2
