@@ -3,28 +3,35 @@ name: Test
 on:
   workflow_dispatch:  # Permite que o workflow seja acionado manualmente
     inputs:
-      # testflag:
-      #   type: string
-      #   options:
-      #     - testflag
       environment:
-        type: string
-        default: testflag
+        type: choice
+        options:
+          - dev
+          - uat
+        
 
 jobs:
   update-secret:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        testflag: ${{ fromJson(inputs.environment) }}
+        testflag: ${{ fromJson(vars.flag) }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Display flag
-        id: display_flag_failfast
+      - name: Test 1
+        id: test1
+        shell: bash
         run: |
-          echo "${{ matrix.testflag.value }}"
+          test="$testflag"
+          echo "test=$test" >> "$GITHUB_OUTPUT"
+
+      # - name: Test 2
+      #   id: test2
+      #   shell: bash
+      #   run: |
+      #     echo "${{ steps.check_flag_failfast.outputs.test1 }}"
 
       
