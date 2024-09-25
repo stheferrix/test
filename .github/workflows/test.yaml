@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           test='${{ vars.flag }}'
-          if [ "${{ inputs.environment }}" == (for env in $(echo "$test" | jq -r '.[]'); do $env") ]; then
+          if [ "${{ inputs.environment }}" == fromJson($test) ]; then
             echo "deu certo! eh $env"
           else
             echo "nao deu certo! eh $env"
