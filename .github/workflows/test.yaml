@@ -29,14 +29,14 @@ jobs:
             echo "nao deu certo! eh $env"
           fi
             
-          for env in $(echo "$test" | jq -r '.[]'); do
-            echo "Environment: $env"
-            if [ "${{ inputs.environment }}" == $env ]; then
-              echo "deu certo! eh $env"
-            elif [ "${{ inputs.environment }}" != $env ]; then
-              echo "nao deu certo! eh $env"
-            fi
-          done
+          # for env in $(echo "$test" | jq -r '.[]'); do
+          #   echo "Environment: $env"
+          #   if [ "${{ inputs.environment }}" == $env ]; then
+          #     echo "deu certo! eh $env"
+          #   elif [ "${{ inputs.environment }}" != $env ]; then
+          #     echo "nao deu certo! eh $env"
+          #   fi
+          # done
 
 
 
