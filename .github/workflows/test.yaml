@@ -25,10 +25,10 @@ jobs:
           test=${{ vars.flag }}
           echo "test=$test" >> "$GITHUB_OUTPUT"
 
-      # - name: Test 2
-      #   id: test2
-      #   shell: bash
-      #   run: |
-      #     echo "${{ steps.check_flag_failfast.outputs.test1 }}"
+      - name: Test 2
+        id: test2
+        shell: bash
+        run: |
+          echo "${{ steps.check_flag_failfast.outputs.test1 }}"
 
       
