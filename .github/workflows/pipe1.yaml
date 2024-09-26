@@ -8,4 +8,3 @@ jobs:
   pipe1:
     name: Run Pipe 2
     uses: ./.github/workflows/pipe2.yaml
-    
