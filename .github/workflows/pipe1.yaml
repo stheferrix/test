@@ -1,0 +1,11 @@
+name: Pipe 1
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  pipe1:
+    name: pipe1
+    uses: ./.github/workflows/pipe2.yaml
+    
