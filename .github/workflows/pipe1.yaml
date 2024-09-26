@@ -2,7 +2,7 @@ name: Pipe 1
 
 on:
   schedule:
-    - cron: '*/1 * * * *'  # Runs every minute
+    # - cron: '*/1 * * * *'  # Runs every minute
 
 jobs:
   pipe1:
