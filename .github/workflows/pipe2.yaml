@@ -1,4 +1,4 @@
-name: Tests
+name: Pipe 2
 
 on:
   workflow_call:
