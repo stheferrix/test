@@ -22,3 +22,4 @@ jobs:
             echo "schedule"
           else
             echo "deu ruim"
+          fi
