@@ -2,10 +2,10 @@ name: Pipe 1
 
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/1 * * * *'  # Runs every minute
 
 jobs:
   pipe1:
-    name: pipe1
+    name: Run Pipe 2
     uses: ./.github/workflows/pipe2.yaml
     
