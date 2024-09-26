@@ -15,10 +15,10 @@ jobs:
       - name: Execute Step
         run: echo "This is Pipe 2 running!"
 
-# - name: Display
-#   id: display_environment
-#   run: |
-#     if [ "${{ github.event_name }}" == "schedule" ]; then
-#       echo "schedule"
-#     else
-#       echo "deu ruim"
+      - name: Display
+        id: display_environment
+        run: |
+          if [ "${{ github.event_name }}" == "schedule" ]; then
+            echo "schedule"
+          else
+            echo "deu ruim"
