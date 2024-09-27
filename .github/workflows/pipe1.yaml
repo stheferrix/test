@@ -1,10 +1,10 @@
-name: Pipe 1
+name: E2E Tests Schedule
 
 on:
   schedule:
-    # - cron: '*/1 * * * *'  # Runs every minute
+    - cron: "0 9 * * 1-5"
 
 jobs:
-  pipe1:
-    name: Run Pipe 2
+  e2e:
+    name: E2E
     uses: ./.github/workflows/pipe2.yaml
