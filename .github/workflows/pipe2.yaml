@@ -1,25 +1,36 @@
-name: Pipe 2
+name: E2E Tests
 
 on:
-  workflow_call:  # Enable this workflow to be called by another
-  # Optionally, you can add inputs here
-  # inputs:
-  #   example_input:
-  #     required: true
-  #     type: string
+  workflow_call:
 
 jobs:
-  job_in_pipe2:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Execute Step
-        run: echo "This is Pipe 2 running!"
+  e2e-tests:
+    name: E2E Tests
+    runs-on:
+      labels: ubuntu-latest
 
-      - name: Display
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Display environment
         id: display_environment
         run: |
-          if [ "${{ github.event_name }}" == "schedule" ]; then
-            echo "schedule"
-          else
-            echo "deu ruim"
-          fi
+          echo "Test"
+
+
+
+
+
+# - name: Display
+#   id: display_environment
+#   run: |
+#     if [ "${{ github.event_name }}" == "schedule" ]; then
+#       echo "schedule"
+#     else
+#       echo "deu ruim"
+#     fi
