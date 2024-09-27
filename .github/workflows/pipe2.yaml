@@ -22,6 +22,11 @@ jobs:
         run: |
           echo "Test"
 
+      - name: Display environment2
+        id: display_environment2
+        run: |
+          echo "${{ github.event_name }}"
+
 
 
 
