@@ -20,6 +20,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Display environment2
+        id: display_environment2
+        run: |
+          echo "${{ github.event_name }}"
+
       - name: Test 1
         id: test1
         shell: bash
