@@ -5,6 +5,7 @@ on:
 
 jobs:
   update_variable:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
