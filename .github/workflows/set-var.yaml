@@ -1,0 +1,24 @@
+name: Set Repository Variable
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  update_variable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh -y
+
+      - name: Set Repository Variable
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Set the token here
+          NEW_VARIABLE_VALUE: "my_new_value"  # Replace with the value you want to set
+        run: |
+          echo $GITHUB_TOKEN | gh auth login --with-token
+          gh variable set TEST_SECRET2 --value "$NEW_VARIABLE_VALUE" --repo ${{ github.repository }}
