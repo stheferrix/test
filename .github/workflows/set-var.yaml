@@ -26,4 +26,4 @@ jobs:
         env:
           NEW_VARIABLE_VALUE: "my_new_value"  # Replace with the value you want to set
         run: |
-          gh variable set TEST_SECRET2 --value "$NEW_VARIABLE_VALUE" --repo ${{ github.repository }}
+          gh variable set TEST_SECRET2 --body "$NEW_VARIABLE_VALUE" --repo ${{ github.repository }}
