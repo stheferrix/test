@@ -37,7 +37,7 @@ jobs:
 
       - name: Update placeholder in file
         run: |
-         sed -i '' 's/{var}/${{env.var}}/g' ${{ github.workspace }}/.github/Debug.swift
+         sed -i '' 's|{var}|${{env.var}}|g' ${{ github.workspace }}/.github/Debug.swift
 
       - name: Display updated file
         run: |
