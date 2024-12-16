@@ -1,0 +1,47 @@
+name: DevOps Troubleshoot Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      configuration:
+        description: Configuration
+        required: true
+        type: choice
+        default: 'Staging'
+        options:
+          - Staging
+          - Release
+          - Debug
+
+env:
+
+jobs:
+  build_sauce_labs:
+    name: Build .ZIP to Sauce Labs
+    runs-on:
+      labels: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set variable based on input
+        id: set_var
+        run: |
+          if [ "${{ github.event.inputs.configuration }}" == "Staging" ]; then
+            echo "var=https://preprod" >> $GITHUB_ENV
+          elif [ "${{ github.event.inputs.configuration }}" == "Debug" ]; then
+            echo "var=https://dev" >> $GITHUB_ENV
+          else
+            echo "Invalid input. Use 'dev' or 'qa'."
+            exit 1
+          fi
+
+      - name: Update placeholder in file
+        run: |
+         sed -i '' 's/{{var}}/"${env.var}"/g' ${{ github.workspace }}/.github/Debug.swift
+
+      - name: Display updated file
+        run: |
+          cat ${{ github.workspace }}/.github/Debug.swift
+
