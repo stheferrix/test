@@ -13,8 +13,6 @@ on:
           - Release
           - Debug
 
-env:
-
 jobs:
   build_sauce_labs:
     name: Build .ZIP to Sauce Labs
