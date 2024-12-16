@@ -9,13 +9,13 @@ enum ServiceEnvironment: Int {
     var serviceUrl: String {
         switch self {
         case .dev:
-            return {{var}}
+            return {var}
         case .qaa:
-            return {{var}}
+            return {var}
         case .preprod:
-            return {{var}}
+            return {var}
         case .prod:
-            return {{var}}
+            return {var}
         }
     }
     
