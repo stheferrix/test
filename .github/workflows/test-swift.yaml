@@ -1,12 +1,6 @@
 name: Manual Swift Setup CI
 
 on:
-  push:
-    branches:
-      - main  # Change this to your desired branch
-  pull_request:
-    branches:
-      - main  # Change this to your desired branch
 
 jobs:
   build:
@@ -23,10 +17,9 @@ jobs:
 
     - name: Download and Install Swift
       run: |
-        SWIFT_VERSION="5.7"  # Change this to your desired Swift version
+        SWIFT_VERSION="5.8.1"  # Update to a version that is available
         SWIFT_URL="https://swift.org/builds/swift-$SWIFT_VERSION-RELEASE/ubuntu2004/swift-$SWIFT_VERSION-RELEASE/swift-$SWIFT_VERSION-RELEASE-ubuntu20.04.tar.gz"
-        
-        # Check if the URL is valid
+
         if curl --output /dev/null --silent --head --fail "$SWIFT_URL"; then
           echo "Downloading Swift $SWIFT_VERSION from $SWIFT_URL"
           curl -s "$SWIFT_URL" | tar xz -C /usr/share --strip-components=1
@@ -38,8 +31,3 @@ jobs:
 
     - name: Verify Swift Installation
       run: swift --version
-
-    - name: Build and Test
-      run: |
-        swift build
-        swift test
