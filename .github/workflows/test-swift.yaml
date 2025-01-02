@@ -1,0 +1,31 @@
+name: DevOps Troubleshoot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  package:
+    name: Test Swift
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang libicu-dev
+
+      - name: Download and Install Swift
+        run: |
+          SWIFT_VERSION="5.7"
+          SWIFT_URL="https://swift.org/builds/swift-$SWIFT_VERSION-RELEASE/ubuntu2004/swift-$SWIFT_VERSION-RELEASE/swift-$SWIFT_VERSION-RELEASE-ubuntu20.04.tar.gz"
+          curl -s "$SWIFT_URL" | tar xz -C /usr/share --strip-components=1
+          echo "/usr/share/swift/usr/bin" >> $GITHUB_PATH
+
+      - name: Verify Swift Installation
+        run: swift --version
