@@ -9,26 +9,11 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y clang libicu-dev
-
-    - name: Download and Install Swift
-      run: |
-        SWIFT_VERSION="5.8.1"  # Update to a version that is available
-        SWIFT_URL="https://swift.org/builds/swift-$SWIFT_VERSION-RELEASE/ubuntu2004/swift-$SWIFT_VERSION-RELEASE/swift-$SWIFT_VERSION-RELEASE-ubuntu20.04.tar.gz"
-
-        if curl --output /dev/null --silent --head --fail "$SWIFT_URL"; then
-          echo "Downloading Swift $SWIFT_VERSION from $SWIFT_URL"
-          curl -s "$SWIFT_URL" | tar xz -C /usr/share --strip-components=1
-          echo "/usr/share/swift/usr/bin" >> $GITHUB_PATH
-        else
-          echo "Error: Swift version $SWIFT_VERSION not available."
-          exit 1
-        fi
-
-    - name: Verify Swift Installation
-      run: swift --version
+    - uses: swift-actions/setup-swift@v2
+      with:
+        swift-version: "6.0"
+        
+    - name: Get swift version
+      run: swift --version 
