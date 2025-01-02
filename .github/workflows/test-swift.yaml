@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use your on-premise runner label if necessary
+    runs-on: ubuntu-22.04  # Use your on-premise runner label if necessary
 
     steps:
     - name: Checkout code
