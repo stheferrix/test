@@ -15,5 +15,9 @@ jobs:
       with:
         swift-version: "5.10.1"
         
-    - name: Get swift version
-      run: swift --version 
+    - name: Printar IP do Runner
+      run: |
+        echo "IP público do runner:"
+        curl ifconfig.me  # Para obter o IP público
+        echo "IP local do runner:"
+        hostname -I     # Para obter o IP local
