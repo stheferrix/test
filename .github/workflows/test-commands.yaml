@@ -1,0 +1,30 @@
+name: Test commands
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test
+			  run: |
+			    content=$(cat <<EOF
+						apiVersion: kustomize.config.k8s.io/v1beta1
+						kind: Kustomization
+						resources:
+						  - image-update-automation.yaml # DO NOT COMMENT THIS FOR THE DOWNSCALE
+						  - redisinsight # DO NOT COMMENT THIS FOR THE DOWNSCALE
+						  - bestie
+						  - carts
+						  - configurations-manager
+						  - customer
+						  - menu
+						EOF)
+			
+			- name: Test2
+			  run: |
+			    echo "$content"
