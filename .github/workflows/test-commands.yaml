@@ -23,4 +23,7 @@ resources:
   - configurations-manager
   - customer
   - menu
-EOF)
+EOF
+    )
+    
+    echo "$content"
