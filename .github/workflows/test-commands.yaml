@@ -28,3 +28,7 @@ jobs:
           new_content=$(echo "$content" | sed '4,$ {/image-update-automation/!{/redisinsight/!s/^/#/}}')
 
           echo "$new_content"
+
+          new_new_content=$(echo "$new_content" | sed 's/^#//')
+
+          echo "$new_new_content"
