@@ -16,6 +16,6 @@ jobs:
       
       - name: Set current_date
         run: |
-          current_date=$(date +'%m%Y')
-          echo "CURRENT_DATE=$current_date"
+          MONTH_YEAR=$(date +'%B %Y')
+          echo "MONTH_YEAR=$MONTH_YEAR"
   
