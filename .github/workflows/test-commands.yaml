@@ -16,6 +16,12 @@ jobs:
       
       - name: Set current_date
         run: |
-          MONTH_YEAR=$(date +'%B %Y')
+          current_date=$(date +'%B %Y')
           echo "MONTH_YEAR=$MONTH_YEAR"
+
+          closest_future_version=$(jq -r --arg today "$current_date" '
+          map(select((.description == "Planned Deployments") and (.startDate >= $today)))
+          | sort_by(.startDate))
+
+          echo "Closest future fixVersion is: $closest_future_version"
   
