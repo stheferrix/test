@@ -14,67 +14,8 @@ jobs:
       
       - uses: actions/checkout@v4
       
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: 3.9.9
-      
-      - name: Verify Maven Installation
-        run: mvn -v
-
-  test-maven3:
-    runs-on:
-      labels: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      
-      - uses: actions/checkout@v4
-
-      - name: Install Apache Maven (specific version)
+      - name: Set current_date
         run: |
-          MAVEN_VERSION=3.9.9
-          wget https://downloads.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
-          tar -xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz
-          sudo mv apache-maven-${MAVEN_VERSION} /opt/maven
-          echo "export M2_HOME=/opt/maven" >> $GITHUB_ENV
-          echo "export PATH=\$PATH:\$M2_HOME/bin" >> $GITHUB_ENV
-
-      - name: Verify Maven Installation
-        run: mvn -v
-
-# name: Test commands
-
-# on:
-#   workflow_dispatch:  # Allows manual triggering of the workflow
-
-# jobs:
-#   test:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
-
-#       - name: Test
-#         run: |
-#           content=$(printf "%s\n" "apiVersion: kustomize.config.k8s.io/v1beta1
-#           kind: Kustomization
-#           resources:
-#             - image-update-automation.yaml # DO NOT COMMENT THIS FOR THE DOWNSCALE
-#             - redisinsight # DO NOT COMMENT THIS FOR THE DOWNSCALE
-#             - bestie
-#             - carts
-#             - configurations-manager
-#             - customer
-#             - menu")
-      
-#           echo "$content"
-
-#           new_content=$(echo "$content" | sed '4,$ {/image-update-automation/!{/redisinsight/!s/^/#/}}')
-
-#           echo "$new_content"
-
-#           new_new_content=$(echo "$new_content" | sed 's/^#//')
-
-#           echo "$new_new_content"
+          current_date=$(date +'%m%Y')
+          echo "CURRENT_DATE=$current_date"
+  
