@@ -8,14 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Export GITHUB_RUN_ID
-        run: echo "RUN_ID=${GITHUB_RUN_ID}" >> $GITHUB_ENV
+        run: |
+          echo "RUN_ID=${GITHUB_RUN_ID}" >> $GITHUB_ENV
 
   use_run_id:
     runs-on: ubuntu-latest
     needs: export_run_id  # This job depends on the previous job
     steps:
       - name: Use the exported GITHUB_RUN_ID
-        run: echo "The exported GITHUB_RUN_ID is: $RUN_ID"
+        run: |
+          echo "The exported GITHUB_RUN_ID is: $RUN_ID"
 
 
       
