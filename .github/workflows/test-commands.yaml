@@ -17,6 +17,9 @@ jobs:
       - name: build id
         run: |
           echo "${GITHUB_RUN_ID}"
+          echo "BUILDID=${GITHUB_RUN_ID}" >> $GITHUB_ENV
+          echo "{{ env.BUILDID }}"
+
 
       
       # - name: Set current_date
