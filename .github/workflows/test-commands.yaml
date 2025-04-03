@@ -13,14 +13,19 @@ jobs:
     steps:
       
       - uses: actions/checkout@v4
-      
-      - name: Set current_date
+
+      - name: build id
         run: |
-          current_date=$(date +'%B %Y')
-          echo "MONTH_YEAR=$current_date"
+          echo "${GITHUB_RUN_ID}"
 
-          closest_future_version=$(jq -r --arg today "$current_date" '
-          map(select((.description == "Planned Deployments") and (.startDate >= $today)))')
+      
+      # - name: Set current_date
+      #   run: |
+      #     current_date=$(date +'%B %Y')
+      #     echo "MONTH_YEAR=$current_date"
 
-          echo "Closest future fixVersion is: $closest_future_version"
+      #     closest_future_version=$(jq -r --arg today "$current_date" '
+      #     map(select((.description == "Planned Deployments") and (.startDate >= $today)))')
+
+      #     echo "Closest future fixVersion is: $closest_future_version"
   
