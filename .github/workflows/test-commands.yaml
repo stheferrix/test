@@ -12,7 +12,7 @@ jobs:
       - name: Set Custom Output
         id: set_output
         run: |
-          echo "::set-output name=run_id::${GITHUB_RUN_ID}"
+          echo "run_id=${GITHUB_RUN_ID}" >> $GITHUB_OUTPUT
 
   use_custom_value:
     runs-on: ubuntu-latest
