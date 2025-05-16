@@ -9,10 +9,9 @@ jobs:
     outputs:
       run_id: ${{ steps.set_output.outputs.run_id }}
     steps:
-      - name: Set up PostgreSQL
-        uses: postgres-actions/setup-postgres@v2
-        with:
-          postgres version: '17'
+      - name: Install PostgreSQL Client
+        run: |
+          sudo apt-get install -y postgresql-client
           
       - name: Set Custom Output
         id: set_output
