@@ -9,18 +9,28 @@ jobs:
     outputs:
       run_id: ${{ steps.set_output.outputs.run_id }}
     steps:
+      - name: Set up PostgreSQL
+        uses: postgres-actions/setup-postgres@v2
+        with:
+          postgres version: '17'
+          
       - name: Set Custom Output
         id: set_output
         run: |
-          echo "run_id=${GITHUB_RUN_ID}" >> $GITHUB_OUTPUT
+          echo "test"
+  
+  
+  
+  
+  # echo "run_id=${GITHUB_RUN_ID}" >> $GITHUB_OUTPUT
 
-  use_custom_value:
-    runs-on: ubuntu-latest
-    needs: export_custom_value
-    steps:
-      - name: Use the Custom Output
-        run: |
-          echo "The exported GITHUB_RUN_ID is: ${{ needs.export_custom_value.outputs.run_id }}"
+  # use_custom_value:
+  #   runs-on: ubuntu-latest
+  #   needs: export_custom_value
+  #   steps:
+  #     - name: Use the Custom Output
+  #       run: |
+  #         echo "The exported GITHUB_RUN_ID is: ${{ needs.export_custom_value.outputs.run_id }}"
 
 
       
