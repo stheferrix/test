@@ -1,0 +1,28 @@
+name: Test
+
+on:
+  workflow_call:
+    inputs:
+      ENVIRONMENT_NAME:
+        required: true
+        type: string
+      TIMEOUT_TO_CHECK_VERSION:
+        required: false
+        default: 40
+        type: number
+
+jobs:
+  check:
+    name: "Test"
+    timeout-minutes: ${{ inputs.TIMEOUT_TO_CHECK_VERSION }}
+    if: always() && !cancelled() && !failure()
+    runs-on:
+      labels: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Define Env
+        run: |
+          echo "${{ inputs.ENVIRONMENT_NAME }}"
