@@ -1,4 +1,4 @@
-name: DevOps Troubleshoot Workflow
+name: DevOps Test
 
 on:
   workflow_dispatch:
@@ -26,7 +26,7 @@ jobs:
     steps:
     - name: Env
       run: |
-        echo ${{inputs.environment}}
+        echo "${{inputs.environment}}"
 
   wait-api-reconcile:
     needs: [branch-validation]
@@ -41,7 +41,7 @@ jobs:
     needs: [branch-validation]
     name: Wait for Flux API Reconciliation East
     if: inputs.check_version == 'true' && (${{ inputs.environment }} == 'production' || ${{ inputs.environment }} == 'uat' || ${{ inputs.environment }} == 'ci')
-    uses: ./.github/workflows/test-east.yaml
+    uses: ./.github/workflows/test2.yaml
     with:
       ENVIRONMENT_NAME: ${{ inputs.environment }}
       secrets: inherit
