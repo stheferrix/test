@@ -39,7 +39,7 @@ jobs:
   wait-api-reconcile-east:
     needs: [branch-validation]
     name: Wait for Flux API Reconciliation East
-    if: (inputs.check_version == 'true' && ${{ inputs.environment }} == 'production') || (inputs.check_version == 'true' && ${{ inputs.environment }} == 'uat') || (inputs.check_version == 'true' && ${{ inputs.environment }} == 'ci')
+    if: if: ${{ inputs.check_version == 'true' && (inputs.environment == 'production' || inputs.environment == 'uat' || inputs.environment == 'ci') }}
     uses: ./.github/workflows/testpipe2.yaml
     with:
       ENVIRONMENT_NAME: ${{ inputs.environment }}
