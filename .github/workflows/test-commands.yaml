@@ -2,21 +2,64 @@ name: DevOps Troubleshoot Workflow
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy
+        type: choice
+        options:
+          - dev
+          - ci
+          - qa
+          - uat
+          - production
+      check_version:
+        description: Should I check version?
+        required: false
+        type: choice
+        options:
+          - 'false'
+          - 'true'
 
 jobs:
-  export_custom_value:
+  branch-validation:
     runs-on: ubuntu-latest
-    outputs:
-      run_id: ${{ steps.set_output.outputs.run_id }}
     steps:
-      - name: Install PostgreSQL Client
-        run: |
-          sudo apt-get install -y postgresql-client
+    - name: Env
+      run: |
+        echo ${{inputs.environment}}
+
+  wait-api-reconcile:
+    needs: [branch-validation]
+    name: Wait for Flux API Reconciliation
+    if: inputs.check_version == 'true'
+    uses: ./.github/workflows/test.yaml
+    with:
+      ENVIRONMENT_NAME: ${{ inputs.environment }}
+      secrets: inherit
+
+  wait-api-reconcile-east:
+    needs: [branch-validation]
+    name: Wait for Flux API Reconciliation East
+    if: inputs.check_version == 'true' && (${{ inputs.environment }} == 'production' || ${{ inputs.environment }} == 'uat' || ${{ inputs.environment }} == 'ci')
+    uses: ./.github/workflows/test-east.yaml
+    with:
+      ENVIRONMENT_NAME: ${{ inputs.environment }}
+      secrets: inherit
+
+# jobs:
+#   export_custom_value:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       run_id: ${{ steps.set_output.outputs.run_id }}
+#     steps:
+#       - name: Install PostgreSQL Client
+#         run: |
+#           sudo apt-get install -y postgresql-client
           
-      - name: Set Custom Output
-        id: set_output
-        run: |
-          echo "test"
+#       - name: Set Custom Output
+#         id: set_output
+#         run: |
+#           echo "test"
   
   
   
