@@ -35,7 +35,6 @@ jobs:
     uses: ./.github/workflows/testpipe1.yaml
     with:
       ENVIRONMENT_NAME: ${{ inputs.environment }}
-      secrets: inherit
 
   wait-api-reconcile-east:
     needs: [branch-validation]
@@ -44,7 +43,6 @@ jobs:
     uses: ./.github/workflows/testpipe2.yaml
     with:
       ENVIRONMENT_NAME: ${{ inputs.environment }}
-      secrets: inherit
 
 # jobs:
 #   export_custom_value:
