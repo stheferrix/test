@@ -25,4 +25,8 @@ jobs:
 
       - name: Define Env
         run: |
-          echo "${{ inputs.ENVIRONMENT_NAME }}"
+          if [[ "${{ inputs.ENVIRONMENT_NAME }}" == "production" || "${{ inputs.ENVIRONMENT_NAME }}" == "ci" || "${{ inputs.ENVIRONMENT_NAME }}" == "uat" ]]; then
+            echo "${{ inputs.ENVIRONMENT_NAME }}"
+          else
+            echo "${{ inputs.ENVIRONMENT_NAME }}"
+          fi
